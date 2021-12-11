@@ -40,7 +40,7 @@ class SignatureWithSigner extends CircuitValue {
 }
 
 function containsPublicKey(xs: Array<PublicKey>, x: PublicKey): Bool {
-  return Bool(xs.some(el => x.equals(el)));
+  return Bool(xs.some(el => x.equals(el).toBoolean()));
 }
 
 // This implements a snapp account that can be used if a user has
@@ -118,7 +118,7 @@ export async function run() {
   await Mina.transaction(account1, async () => {
     const amount = UInt64.fromNumber(123);
     // Pick one of the valid senders to sign with
-    const sender = privateKeys[5];
+    const sender = privateKeys[5]; // to test with non-whitelisted account, try `const sernder = PrivateKey.random();`
 
     await snappInstance.spend(
       amount,
